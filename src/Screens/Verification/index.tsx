@@ -27,8 +27,6 @@ const OTP: React.FC = () => {
   });
   const [focusField, setFocusField] = useState<string | null>(null);
 
-  const navigation = useNavigation();
-
   const E1 = useRef<TextInput>(null);
   const E2 = useRef<TextInput>(null);
   const E3 = useRef<TextInput>(null);
