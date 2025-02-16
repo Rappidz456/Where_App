@@ -7,9 +7,10 @@ import {
   SafeAreaView,
   StyleSheet,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import {verticalScale, horizontalScale, fontScale} from '../../Utils/ScaleSize';
 import LinearGradient from 'react-native-linear-gradient';
+import FaceDetection, { FaceDetectorClassificationMode } from 'react-native-face-detection';
+import IMAGES from '../../Assets/Constants/Images';
 
 type OTPState = {
   T1: string;
@@ -26,6 +27,10 @@ const OTP: React.FC = () => {
     T4: '',
   });
   const [focusField, setFocusField] = useState<string | null>(null);
+
+  React.useEffect(() => {
+    faceDetection();
+  }, [])
 
   const E1 = useRef<TextInput>(null);
   const E2 = useRef<TextInput>(null);
@@ -54,6 +59,16 @@ const OTP: React.FC = () => {
         break;
     }
   };
+  
+  const imagePath = IMAGES.people.toString();
+
+  const faceDetection = async () => {
+      const faces = await FaceDetection.processImage(imagePath)
+      faces.forEach(face => {
+        console.log(face.leftEyeOpenProbability);
+      })
+  } 
+
 
   return (
     <SafeAreaView style={styles.container}>
